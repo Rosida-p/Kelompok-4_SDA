@@ -1,4 +1,5 @@
-# Kelompok-4_SDA
-projek uap yang beranggotaan: Muhammad Iqbal fadhillah Ab, Ilham Khoirul Saputra, Qorina Qisthi Qamal, Rosida Purnala Sari
-hallo aku qisthy
-ros djsjua
+Kelompok 4;
+QORINA QISTHI KAMAL
+ROSIDA PURNALA SARI
+ILHAM KHOIRUL SAPUTRA
+MUHAMMAD IQBAL FADHILAH AB 
