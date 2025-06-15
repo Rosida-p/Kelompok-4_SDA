@@ -1,4 +1,4 @@
-Kelompok 4;
+Kelompok 4; (Sistem penerimaan mahasiswa baru ilmu komputer)
 QORINA QISTHI KAMAL
 ROSIDA PURNALA SARI
 ILHAM KHOIRUL SAPUTRA
