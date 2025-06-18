@@ -11,25 +11,25 @@ stack<string>st;
 queue<string>qu;
 
 void create(){
-string nim,nama,jurusan;
-do{
-cout <<"NIM (min 10 digit angka): ";
-cin >>nim;
+  string nim,nama,jurusan;
+  do{
+  cout <<"NIM (min 10 digit angka): ";
+  cin >>nim;
 
 bool valid = (nim.length()>=10);
 for(char c : nim){
-if(!isdigit(c)){
-valid = false;
-break;
+   if(!isdigit(c)){
+    valid = false;
+    break;
   }
 }
 
 if (!valid){
- cout << "NIM harus terdiri dari minimal 10 angka./n";
+   cout << "NIM harus terdiri dari minimal 10 angka./n";
 } else if (db.count(nim)){
-cout << "NIM sudah ada dalam database./n";
+   cout << "NIM sudah ada dalam database./n";
   valid = false;
-}
+  }
 
 if (!valid) continue;
 break;
@@ -42,20 +42,20 @@ db[nim]=make_pair(nama,jurusan);
 st.push(nim);
 qu.push(nim);
 cout <<"OK/n";
-}
+ }
 
 void listAll(){
-if (db.empty()){
-cout << "Kosong/n";
-return;
+   if (db.empty()){
+   cout << "Kosong/n";
+   return;
 }
 for (auto it = db.begin();it !=
 db.end();++it){
-string nim = it->first;
-string nama = it->second.frist;
-string jurusan = it->second.second;
-cout << nim << " ;" <<nama << "(" <<jurusan<< ")/n";
-}
+   string nim = it->first;
+   string nama = it->second.frist;
+   string jurusan = it->second.second;
+   cout << nim << " ;" <<nama << "(" <<jurusan<< ")/n";
+  }
 }
 
  // Rebuild stack
