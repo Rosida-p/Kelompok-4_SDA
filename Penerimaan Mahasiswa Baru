@@ -11,21 +11,17 @@ MUHAMMAD IQBAL FADHILAH AB (2407051019)
 #include<string>
 using namespace std;
 
-//Struktur utama penyimpanan data mahasiswa
 map<string,pair<string,string>>db;
 
-//Stack (LIFO)dan Queue (FIFO)
 stack<string>st;
 queue<string>qu;
 
-//Tambah data mahasiswa
 void create(){
 string nim,nama,jurusan;
 do{
 cout <<"NIM (min 10 digit angka): ";
 cin >>nim;
 
-//Validasi panjang dan hanya angka
 bool valid = (nim.length()>=10);
 for(char c : nim){
 if(!isdigit(c)){
@@ -54,7 +50,6 @@ qu.push(nim);
 cout <<"OK/n";
 }
 
-//Tampilkan semua data mahasiswa
 void listAll(){
 if (db.empty()){
 cout << "Kosong/n";
