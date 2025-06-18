@@ -58,7 +58,6 @@ db.end();++it){
   }
 }
 
- // Rebuild stack
     stack<string> s2;
     while (!st.empty()) {
         if (st.top() != nim) s2.push(st.top());
@@ -66,7 +65,6 @@ db.end();++it){
     }
     swap(st, s2);
 
-    // Rebuild queue
     queue<string> q2;
     while (!qu.empty()) {
         if (qu.front() != nim) q2.push(qu.front());
@@ -101,68 +99,84 @@ void procS() {
     cout << "LIFO → " << nim << ": " << db[nim].first << "\n";
 }
 
+// Pencarian berdasarkan NIM atau Nama
+void searchData() {
+    if (db.empty()) {
+        cout << "Data kosong.\n";
+        return;
+    }
 
+    string keyword;
+    cin.ignore();
+    cout << "Masukkan NIM atau Nama: ";
+    getline(cin, keyword);
 
+    bool found = false;
+    for (const auto& entry : db) {
+        const string& nim = entry.first;
+        const string& nama = entry.second.first;
+        const string& jurusan = entry.second.second;
 
+        if (nim == keyword || nama.find(keyword) != string::npos) {
+            cout << nim << ": " << nama << " (" << jurusan << ")\n";
+            found = true;
+        }
+    }
 
+    if (!found)
+        cout << "Data tidak ditemukan.\n";
+}
 
+// Sorting data menggunakan Bubble Sort berdasarkan NIM atau Nama
+void bubbleSort() {
+    if (db.empty()) {
+        cout << "Data kosong.\n";
+        return;
+    }
 
+    int mode;
+    cout << "Urutkan berdasarkan: 1=NIM 2=Nama\n> ";
+    cin >> mode;
 
+    // Salin data ke vector untuk diurutkan
+    vector<pair<string, pair<string, string>>> data(db.begin(), db.end());
 
+    // Bubble Sort
+    for (size_t i = 0; i < data.size(); ++i) {
+        for (size_t j = 0; j < data.size() - i - 1; ++j) {
+            bool swapNeeded = false;
+            if (mode == 1 && data[j].first > data[j + 1].first)
+                swapNeeded = true;
+            else if (mode == 2 && data[j].second.first > data[j + 1].second.first)
+                swapNeeded = true;
 
+            if (swapNeeded)
+                swap(data[j], data[j + 1]);
+        }
+    }
 
+    cout << "\nHasil Sort:\n";
+    for (const auto& d : data) {
+        cout << d.first << ": " << d.second.first << " (" << d.second.second << ")\n";
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Menu utama
 int main() {
     int p;
     do {
         cout << "\n==============================\n";
         cout << "  MENU UTAMA - DATA MAHASISWA\n";
         cout << "==============================\n";
-        cout << " 1. ➕ Tambah Data Mahasiswa\n";
-        cout << " 2. 📄 Tampilkan Semua Data\n";
-        cout << " 3. ✏  Update Data Mahasiswa\n";
-        cout << " 4. ❌ Hapus Data Mahasiswa\n";
-        cout << " 5. 🔁 Proses FIFO (Queue)\n";
-        cout << " 6. 🔂 Proses LIFO (Stack)\n";
-        cout << " 7. 🔍 Cari Data Mahasiswa\n";
-        cout << " 8. 📊 Urutkan Data (Bubble Sort)\n";
-        cout << " 0. 🚪 Keluar Program\n";
+        cout << " 1.  Tambah Data Mahasiswa\n";
+        cout << " 2.  Tampilkan Semua Data\n";
+        cout << " 3.  Update Data Mahasiswa\n";
+        cout << " 4.  Hapus Data Mahasiswa\n";
+        cout << " 5.  Proses FIFO (Queue)\n";
+        cout << " 6.  Proses LIFO (Stack)\n";
+        cout << " 7.  Cari Data Mahasiswa\n";
+        cout << " 8.  Urutkan Data (Bubble Sort)\n";
+        cout << " 0.  Keluar Program\n";
         cout << "------------------------------\n";
         cout << "Pilih menu (0-8): ";
         cin >> p;
@@ -177,8 +191,54 @@ int main() {
             case 7: searchData(); break;
             case 8: bubbleSort(); break;
             case 0: cout << "Terima kasih, program selesai.\n"; break;
-            default: cout << "❗ Pilihan tidak valid!\n";
+            default: cout << "Pilihan tidak valid!\n";
         }
     } while (p != 0);
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
