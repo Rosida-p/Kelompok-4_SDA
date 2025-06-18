@@ -1,4 +1,4 @@
-Kelompok 4; (Sistem penerimaan mahasiswa baru ilmu komputer)
+Kelompok 4; (Sistem Penerimaan Mahasiswa Baru Ilmu Komputer)
 QORINA QISTHI KAMAL (2407051028)
 ROSIDA PURNALA SARI (2407051011)
 ILHAM KHOIRUL SAPUTRA (2407051007)
@@ -182,7 +182,7 @@ void procS() {
 
 
 
-// Menu utama
+
 int main() {
     int p;
     do {
