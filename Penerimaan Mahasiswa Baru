@@ -1,9 +1,3 @@
-Kelompok 4; (Sistem Penerimaan Mahasiswa Baru Ilmu Komputer)
-QORINA QISTHI KAMAL (2407051028)
-ROSIDA PURNALA SARI (2407051011)
-ILHAM KHOIRUL SAPUTRA (2407051007)
-MUHAMMAD IQBAL FADHILAH AB (2407051019) 
-
 #include<iostream>
 #include<map>
 #include<queue>
@@ -31,9 +25,9 @@ break;
 }
 
 if (!valid){
- cout << " ! NIM harus terdiri dari minimal 10 angka./n";
+ cout << "NIM harus terdiri dari minimal 10 angka./n";
 } else if (db.count(nim)){
-cout << " ! NIM sudah ada dalam database./n";
+cout << "NIM sudah ada dalam database./n";
   valid = false;
 }
 
@@ -64,23 +58,24 @@ cout << nim << " ;" <<nama << "(" <<jurusan<< ")/n";
 }
 }
 
-
-
-
-//Rebuild stack
- stack<string> s2;
+ // Rebuild stack
+    stack<string> s2;
     while (!st.empty()) {
         if (st.top() != nim) s2.push(st.top());
         st.pop();
     }
     swap(st, s2);
 
- // Rebuild queue
+    // Rebuild queue
     queue<string> q2;
     while (!qu.empty()) {
         if (qu.front() != nim) q2.push(qu.front());
         qu.pop();
     }
+    swap(qu, q2);
+
+    cout << "OK\n";
+}
     swap(qu, q2);
 
     cout << "OK\n";
