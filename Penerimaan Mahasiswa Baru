@@ -4,6 +4,70 @@ ROSIDA PURNALA SARI (2407051011)
 ILHAM KHOIRUL SAPUTRA (2407051007)
 MUHAMMAD IQBAL FADHILAH AB (2407051019) 
 
+#include<iostream>
+#include<map>
+#include<queue>
+#include<vector>
+#include<string>
+using namespace std;
+
+//Struktur utama penyimpanan data mahasiswa
+map<string,pair<string,string>>db;
+
+//Stack (LIFO)dan Queue (FIFO)
+stack<string>st;
+queue<string>qu;
+
+//Tambah data mahasiswa
+void create(){
+string nim,nama,jurusan;
+do{
+cout <<"NIM (min 10 digit angka): ";
+cin >>nim;
+
+//Validasi panjang dan hanya angka
+bool valid = (nim.length()>=10);
+for(char c : nim){
+if(!isdigit(c)){
+valid = false;
+break;
+  }
+}
+
+if (!valid){
+ cout << " ! NIM harus terdiri dari minimal 10 angka./n";
+} else if (db.count(nim)){
+cout << " ! NIM sudah ada dalam database./n";
+  valid = false;
+}
+
+if (!valid) continue;
+break;
+
+}while (true);
+cin.ignore();
+cout << "Nama: ";getline(cin,nama);
+cout << "jurusan: ";getline(cin,jurusan);
+db[nim]=make_pair(nama,jurusan);
+st.push(nim);
+qu.push(nim);
+cout <<"OK/n";
+}
+
+//Tampilkan semua data mahasiswa
+void listAll(){
+if (db.empty()){
+cout << "Kosong/n";
+return;
+}
+for (auto it = db.begin();it !=
+db.end();++it){
+string nim = it->first;
+string nama = it->second.frist;
+string jurusan = it->second.second;
+cout << nim << " ;" <<nama << "(" <<jurusan<< ")/n";
+}
+}
 
 
 
