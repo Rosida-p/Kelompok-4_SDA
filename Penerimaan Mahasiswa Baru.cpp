@@ -3,6 +3,7 @@
 #include<queue>
 #include<vector>
 #include<string>
+#include<stack> // Tambahkan ini
 using namespace std;
 
 // Struktur utama penyimpanan data mahasiswa
@@ -16,51 +17,50 @@ queue<string>qu;
 void create(){
   string npm,nama,jurusan;
   do{
-  cout <<"NPM (min 10 digit angka): ";
-  cin >>npm;
+    cout <<"NPM (min 10 digit angka): ";
+    cin >>npm;
 
-// Validasi panjang dan hanya angka
-bool valid = (npm.length()>=10);
-for(char c : npm){
-   if(!isdigit(c)){
-    valid = false;
+    // Validasi panjang dan hanya angka
+    bool valid = (npm.length()>=10);
+    for(char c : npm){
+      if(!isdigit(c)){
+        valid = false;
+        break;
+      }
+    }
+
+    if (!valid){
+      cout << "NPM harus terdiri dari minimal 10 angka.\n";
+    } else if (db.count(npm)){ // Perbaiki nim -> npm
+      cout << "NPM sudah ada dalam database.\n";
+      valid = false;
+    }
+
+    if (!valid) continue;
     break;
-  }
+
+  }while (true);
+  cin.ignore();
+  cout << "Nama: ";getline(cin,nama);
+  cout << "jurusan: ";getline(cin,jurusan);
+  db[npm]=make_pair(nama,jurusan);
+  st.push(npm);
+  qu.push(npm);
+  cout <<"OK\n";
 }
-
-if (!valid){
-   cout << "NPM harus terdiri dari minimal 10 angka./n";
-} else if (db.count(nim)){
-   cout << "NPM sudah ada dalam database./n";
-  valid = false;
-  }
-
-if (!valid) continue;
-break;
-
-}while (true);
-cin.ignore();
-cout << "Nama: ";getline(cin,nama);
-cout << "jurusan: ";getline(cin,jurusan);
-db[npm]=make_pair(nama,jurusan);
-st.push(npm);
-qu.push(npm);
-cout <<"OK/n";
- }
 
 // Tampilkan semua data mahasiswa
 void listAll(){
-   if (db.empty()){
-   cout << "Kosong/n";
-   return;
-}
+  if (db.empty()){
+    cout << "Kosong\n";
+    return;
+  }
 
-for (auto it = db.begin();it !=
-db.end();++it){
-   string npm = it->first;
-   string nama = it->second.first;
-   string jurusan = it->second.second;
-   cout << npm << " ;" <<nama << "(" <<jurusan<< ")/n";
+  for (auto it = db.begin();it != db.end();++it){
+    string npm = it->first;
+    string nama = it->second.first;
+    string jurusan = it->second.second;
+    cout << npm << " ;" <<nama << "(" <<jurusan<< ")\n";
   }
 }
 
@@ -90,7 +90,13 @@ void deleteData() {
         if (st.top() != npm) s2.push(st.top());
         st.pop();
     }
-    swap(st, s2);
+    // Balik lagi ke urutan semula
+    stack<string> s3;
+    while (!s2.empty()) {
+        s3.push(s2.top());
+        s2.pop();
+    }
+    swap(st, s3);
 
     // Rebuild queue
     queue<string> q2;
