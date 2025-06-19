@@ -20,7 +20,7 @@ void create(){
   cin >>npm;
 
 // Validasi panjang dan hanya angka
-bool valid = (nim.length()>=10);
+bool valid = (npm.length()>=10);
 for(char c : nim){
    if(!isdigit(c)){
     valid = false;
@@ -58,7 +58,7 @@ void listAll(){
 for (auto it = db.begin();it !=
 db.end();++it){
    string npm = it->first;
-   string nama = it->second.frist;
+   string nama = it->second.first;
    string jurusan = it->second.second;
    cout << npm << " ;" <<nama << "(" <<jurusan<< ")/n";
   }
@@ -74,8 +74,8 @@ void updateData() {
     string n, j;
     cout << "Nama baru (Enter=skip): "; getline(cin, n);
     cout << "Jurusan baru (Enter=skip): "; getline(cin, j);
-    if (!n.empty()) db[nim].first = n;
-    if (!j.empty()) db[nim].second = j;
+    if (!n.empty()) db[npm].first = n;
+    if (!j.empty()) db[npm].second = j;
     cout << "OK\n";
 }
 
@@ -110,7 +110,7 @@ void procQ() {
         return;
     }
     string npm = qu.front(); qu.pop();
-    cout << "FIFO → " << nim << ": " << db[npm].first << "\n";
+    cout << "FIFO → " << npm << ": " << db[npm].first << "\n";
 }
 
 // Proses LIFO (Stack)
@@ -141,7 +141,7 @@ void searchData() {
         const string& nama = entry.second.first;
         const string& jurusan = entry.second.second;
 
-        if (nim == keyword || nama.find(keyword) != string::npos) {
+        if (npm == keyword || nama.find(keyword) != string::npos) {
             cout << npm << ": " << nama << " (" << jurusan << ")\n";
             found = true;
         }
