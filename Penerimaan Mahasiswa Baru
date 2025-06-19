@@ -5,17 +5,21 @@
 #include<string>
 using namespace std;
 
+// Struktur utama penyimpanan data mahasiswa
 map<string,pair<string,string>>db;
 
+// Stack (LIFO) dan Queue (FIFO)
 stack<string>st;
 queue<string>qu;
 
+// Tambah data mahasiswa
 void create(){
-  string nim,nama,jurusan;
+  string npm,nama,jurusan;
   do{
-  cout <<"NIM (min 10 digit angka): ";
-  cin >>nim;
+  cout <<"NPM (min 10 digit angka): ";
+  cin >>npm;
 
+// Validasi panjang dan hanya angka
 bool valid = (nim.length()>=10);
 for(char c : nim){
    if(!isdigit(c)){
@@ -25,9 +29,9 @@ for(char c : nim){
 }
 
 if (!valid){
-   cout << "NIM harus terdiri dari minimal 10 angka./n";
+   cout << "NPM harus terdiri dari minimal 10 angka./n";
 } else if (db.count(nim)){
-   cout << "NIM sudah ada dalam database./n";
+   cout << "NPM sudah ada dalam database./n";
   valid = false;
   }
 
@@ -38,55 +42,75 @@ break;
 cin.ignore();
 cout << "Nama: ";getline(cin,nama);
 cout << "jurusan: ";getline(cin,jurusan);
-db[nim]=make_pair(nama,jurusan);
-st.push(nim);
-qu.push(nim);
+db[npm]=make_pair(nama,jurusan);
+st.push(npm);
+qu.push(npm);
 cout <<"OK/n";
  }
 
+// Tampilkan semua data mahasiswa
 void listAll(){
    if (db.empty()){
    cout << "Kosong/n";
    return;
 }
+
 for (auto it = db.begin();it !=
 db.end();++it){
-   string nim = it->first;
+   string npm = it->first;
    string nama = it->second.frist;
    string jurusan = it->second.second;
-   cout << nim << " ;" <<nama << "(" <<jurusan<< ")/n";
+   cout << npm << " ;" <<nama << "(" <<jurusan<< ")/n";
   }
 }
 
+// Update data mahasiswa berdasarkan NPM
+void updateData() {
+    string npm;
+    cout << "NPM: ";
+    cin >> npm;
+    if (!db.count(npm)) { cout << "Tidak ada\n"; return; }
+    cin.ignore();
+    string n, j;
+    cout << "Nama baru (Enter=skip): "; getline(cin, n);
+    cout << "Jurusan baru (Enter=skip): "; getline(cin, j);
+    if (!n.empty()) db[nim].first = n;
+    if (!j.empty()) db[nim].second = j;
+    cout << "OK\n";
+}
+
+// Hapus data mahasiswa
+void deleteData() {
+    string npm; cout << "NPM: "; cin >> npm;
+    if (!db.erase(npm)) { cout << "Tidak ada\n"; return; }
+
+    // Rebuild stack
     stack<string> s2;
     while (!st.empty()) {
-        if (st.top() != nim) s2.push(st.top());
+        if (st.top() != npm) s2.push(st.top());
         st.pop();
     }
     swap(st, s2);
 
+    // Rebuild queue
     queue<string> q2;
     while (!qu.empty()) {
-        if (qu.front() != nim) q2.push(qu.front());
+        if (qu.front() != npm) q2.push(qu.front());
         qu.pop();
     }
     swap(qu, q2);
 
     cout << "OK\n";
 }
-    swap(qu, q2);
-
-    cout << "OK\n";
-}
-
+   
 // Proses FIFO (Queue)
 void procQ() {
     if (qu.empty()) {
         cout << "Q kosong\n";
         return;
     }
-    string nim = qu.front(); qu.pop();
-    cout << "FIFO → " << nim << ": " << db[nim].first << "\n";
+    string npm = qu.front(); qu.pop();
+    cout << "FIFO → " << nim << ": " << db[npm].first << "\n";
 }
 
 // Proses LIFO (Stack)
@@ -95,11 +119,11 @@ void procS() {
         cout << "S kosong\n";
         return;
     }
-    string nim = st.top(); st.pop();
-    cout << "LIFO → " << nim << ": " << db[nim].first << "\n";
+    string npm = st.top(); st.pop();
+    cout << "LIFO → " << npm << ": " << db[npm].first << "\n";
 }
 
-// Pencarian berdasarkan NIM atau Nama
+// Pencarian berdasarkan NPM atau Nama
 void searchData() {
     if (db.empty()) {
         cout << "Data kosong.\n";
@@ -108,17 +132,17 @@ void searchData() {
 
     string keyword;
     cin.ignore();
-    cout << "Masukkan NIM atau Nama: ";
+    cout << "Masukkan NPM atau Nama: ";
     getline(cin, keyword);
 
     bool found = false;
     for (const auto& entry : db) {
-        const string& nim = entry.first;
+        const string& npm = entry.first;
         const string& nama = entry.second.first;
         const string& jurusan = entry.second.second;
 
         if (nim == keyword || nama.find(keyword) != string::npos) {
-            cout << nim << ": " << nama << " (" << jurusan << ")\n";
+            cout << npm << ": " << nama << " (" << jurusan << ")\n";
             found = true;
         }
     }
@@ -127,7 +151,7 @@ void searchData() {
         cout << "Data tidak ditemukan.\n";
 }
 
-// Sorting data menggunakan Bubble Sort berdasarkan NIM atau Nama
+// Sorting data menggunakan Bubble Sort berdasarkan NPM atau Nama
 void bubbleSort() {
     if (db.empty()) {
         cout << "Data kosong.\n";
@@ -135,7 +159,7 @@ void bubbleSort() {
     }
 
     int mode;
-    cout << "Urutkan berdasarkan: 1=NIM 2=Nama\n> ";
+    cout << "Urutkan berdasarkan: 1=NPM 2=Nama\n> ";
     cin >> mode;
 
     // Salin data ke vector untuk diurutkan
@@ -155,6 +179,7 @@ void bubbleSort() {
         }
     }
 
+    // Tampilkan hasil sort
     cout << "\nHasil Sort:\n";
     for (const auto& d : data) {
         cout << d.first << ": " << d.second.first << " (" << d.second.second << ")\n";
@@ -168,15 +193,15 @@ int main() {
         cout << "\n==============================\n";
         cout << "  MENU UTAMA - DATA MAHASISWA\n";
         cout << "==============================\n";
-        cout << " 1.  Tambah Data Mahasiswa\n";
-        cout << " 2.  Tampilkan Semua Data\n";
-        cout << " 3.  Update Data Mahasiswa\n";
-        cout << " 4.  Hapus Data Mahasiswa\n";
-        cout << " 5.  Proses FIFO (Queue)\n";
-        cout << " 6.  Proses LIFO (Stack)\n";
-        cout << " 7.  Cari Data Mahasiswa\n";
-        cout << " 8.  Urutkan Data (Bubble Sort)\n";
-        cout << " 0.  Keluar Program\n";
+        cout << " 1. Tambah Data Mahasiswa\n";
+        cout << " 2. Tampilkan Semua Data\n";
+        cout << " 3. Update Data Mahasiswa\n";
+        cout << " 4. Hapus Data Mahasiswa\n";
+        cout << " 5. Proses FIFO (Queue)\n";
+        cout << " 6. Proses LIFO (Stack)\n";
+        cout << " 7. Cari Data Mahasiswa\n";
+        cout << " 8. Urutkan Data (Bubble Sort)\n";
+        cout << " 0. Keluar Program\n";
         cout << "------------------------------\n";
         cout << "Pilih menu (0-8): ";
         cin >> p;
@@ -196,49 +221,3 @@ int main() {
     } while (p != 0);
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
