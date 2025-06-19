@@ -21,7 +21,7 @@ void create(){
 
 // Validasi panjang dan hanya angka
 bool valid = (npm.length()>=10);
-for(char c : nim){
+for(char c : npm){
    if(!isdigit(c)){
     valid = false;
     break;
